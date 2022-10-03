@@ -1,2 +1,1 @@
-# Leetcode challenges solved everyday goes here.
-# The coding challenges involves codes using python.
+# Leetcode challenges solved everyday using python.
