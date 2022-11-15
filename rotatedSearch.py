@@ -1,118 +1,49 @@
-# # Python Program to search an element
-# # in a sorted and pivoted array
+def pivotedBinarySearch(arr1,n,key):
+    pivot = findpivot(arr1,0,n-1)
+    if pivot == -1:
+        return binarySearch(arr1,0,n-1,key)
+    if arr1[pivot] == key:
+        return pivot
 
-# # Searches an element key in a pivoted
-# # sorted array arrp[] of size n
-# def pivotedBinarySearch(arr, n, key):
+    if arr1[0] <=key:
+        return binarySearch(arr1,0,pivot-1,key)
+    return binarySearch(arr1,pivot+1,n-1,key)
 
-# 	pivot = findPivot(arr, 0, n-1)
-
-# 	# If we didn't find a pivot,
-# 	# then array is not rotated at all
-# 	if pivot == -1:
-# 		return binarySearch(arr, 0, n-1, key)
-
-# 	# If we found a pivot, then first
-# 	# compare with pivot and then
-# 	# search in two subarrays around pivot
-# 	if arr[pivot] == key:
-# 		return pivot
-# 	if arr[0] <= key:
-# 		return binarySearch(arr, 0, pivot-1, key)
-# 	return binarySearch(arr, pivot + 1, n-1, key)
-
-
-# # Function to get pivot. For array
-# # 3, 4, 5, 6, 1, 2 it returns 3
-# # (index of 6)
-# def findPivot(arr, low, high):
-
-# 	# base cases
-# 	if high < low:
-# 		return -1
-# 	if high == low:
-# 		return low
-
-# 	# low + (high - low)/2;
-# 	mid = int((low + high)/2)
-
-# 	if mid < high and arr[mid] > arr[mid + 1]:
-# 		return mid
-# 	if mid > low and arr[mid] < arr[mid - 1]:
-# 		return (mid-1)
-# 	if arr[low] >= arr[mid]:
-# 		return findPivot(arr, low, mid-1)
-# 	return findPivot(arr, mid + 1, high)
-
-# # Standard Binary Search function
-# def binarySearch(arr, low, high, key):
-
-# 	if high < low:
-# 		return -1
-
-# 	# low + (high - low)/2;
-# 	mid = int((low + high)/2)
-
-# 	if key == arr[mid]:
-# 		return mid
-# 	if key > arr[mid]:
-# 		return binarySearch(arr, (mid + 1), high,
-# 							key)
-# 	return binarySearch(arr, low, (mid - 1), key)
-
-
-def pivotBinarySearch(arr,n,key):
-    pivot = findPivot(arr,0,n-1)
-
-def binarySearch(arr,item,low,high):
+def findpivot(arr1,low,high):
     if low > high:
         return -1
+    elif low == high:
+        return low
+
+    mid = (low+high)//2
+    if mid < high and arr1[mid] > arr1[mid+1]:
+        return mid
+    elif mid > low and arr1[mid-1]>arr1[mid]:
+        return mid-1
+    elif arr1[low] > arr1[mid]:
+        return findpivot(arr1,low,mid-1)
+    else:
+        return findpivot(arr1,mid+1,high)
+
+
+
+def binarySearch(arr1,low,high,item):
+    if low > high:
+        return False
     else:
         mid = (low+high)//2
-        if arr[mid] == item:
+        if arr1[mid] == item:
             return mid
-        elif arr[mid] > item:
-            return binarySearch(arr,item,low,mid-1)
-        elif arr[mid] < item:
-            return binarySearch(arr,item,mid+1,high)
-
-
-def findPivot(arr,l,h):
-    if l > h :
-        return -1
-    if l == h :
-        return l
-        
-
-    mid = (l+h)//2
-    if arr[mid-1] > arr[mid] :
-        return mid-1
-    elif arr[mid+1] > arr[mid]:
-        return mid
-    elif arr[l] > arr[mid]:
-        return findPivot(arr,l,mid-1)
-    elif arr[h] > arr[mid]:
-        return findPivot(arr,mid+1,h)
-    else:
-        return -1
-
-
-        
+        elif arr1[mid] > item:
+            return binarySearch(arr1,low,mid-1,item)
+        elif arr1[mid] < item:
+            return binarySearch(arr1,mid+1,high,item)
 
 
 
 
-
-
-
-
-# Driver program to check above functions
-# Let us search 3 in below array
 if __name__ == '__main__':
-	arr1 = [5, 6, 7, 8, 9, 10, 1, 2, 3]
-	n = len(arr1)
-	key = 3
-	print("Index of the element is : ", \
-		pivotedBinarySearch(arr1, n, key))
-
-# This is contributed by Smitha Dinesh Semwal
+    arr1 = [5, 6, 7, 8, 9, 10, 1, 2, 3]
+    n = len(arr1)
+    key = 3
+    print("Index of the element is : ", pivotedBinarySearch(arr1, n, key))
