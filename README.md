@@ -1,1 +1,1 @@
-# Leetcode challenges solved everyday using python.
+# Leetcode challenges
