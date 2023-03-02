@@ -1,12 +1,11 @@
 def factorial(x):
-    f = 0
-    for i in range(x-1,1,-1):
+    f = 1
+    for i in range(x,1,-1):
         f = f*i
+
     return f
 
-def permutation(y):
-    pass
-n = input("Enter the string")
+n = input("Enter the string :: ")
 dictionary = {}
 length = len(n)
 for char in n:
@@ -15,5 +14,7 @@ for char in n:
     else:
         dictionary[char] +=1
 fact = factorial(length)
-perm = permutation()
-
+for k,v in dictionary.items():
+    if v>1:
+        fact = fact//factorial(v)
+print(fact)
